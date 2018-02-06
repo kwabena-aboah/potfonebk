@@ -1,0 +1,27 @@
+{% extends 'potfonebks/base.html' %}
+
+{% block header %}
+  <h2>{{ contact.name }}</h2>
+{% endblock header %}
+
+{% block content %}
+
+ <!--  <a href="#"><image src="{% url 'potfonebks:contact' contact.id %}">{{ contact.image }}</image></a> -->
+  <div class="panel panel-default">
+  	{% for detail in details %}
+  	    {% if detail %}
+          <div class="panel-heading">
+            <h3>{{ detail }}</h3>
+            <div class="panel-body">
+              {{ detail.text|linebreaks }}
+            </div>
+          </div>
+  	    {% endif %}
+  	{% empty %}
+  	    There are no details for this contact yet.
+  	{% endfor %}
+  </div>
+  <small>
+      <a href="{% url 'potfonebks:edit_contact' contact.id %}">edit contact</a>
+  </small>
+{% endblock content %}

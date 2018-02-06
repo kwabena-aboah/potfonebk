@@ -1,0 +1,1 @@
+This file ensures that potfonebk/static/ will be added to the project. Django will collect static files and place the in potfonebk/static/.

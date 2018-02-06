@@ -1,0 +1,32 @@
+{% extends 'potfonebks/base.html' %}
+
+{% block header %}
+  <h2>Contacts</h2>
+{% endblock header %}
+
+{% block content %}
+
+<div class="col-md-12 col-sm-12 col-xs-12 user-login-box">
+    <div class="row">
+      <div class="col-md-8 col-sm-8 col-xs-8 col-md-offset-2 col-sm-offset-2 col-xs-offset-2 text-center">
+      	<table class="table">
+      		<!-- <th>Contact name</th>
+      		<th>Action</th> -->
+			{% for contact in contacts %}
+			    <tr>
+			    	<td align="left"><a href="{% url 'potfonebks:contact' contact.id %}">{{ contact.name }}</a><td>
+			    	<td align="right"><a href="{% url 'potfonebks:delete_contact' contact.id %}" class="btn btn-danger">
+			    		<span class="glyphicon glyphicon-remove"></span>
+			    	</a></td>
+			    </tr>
+			{% empty %}
+			    <li>No contact has been added yet.</li>    
+			{% endfor %}
+		</table>
+      </div>
+    </div>
+    <!-- new contact -->
+	<small><a href="{% url 'potfonebks:new_contact' %}">Add contact:</a></small>
+</div>
+
+{% endblock content %}

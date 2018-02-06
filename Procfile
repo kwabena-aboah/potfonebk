@@ -1,0 +1,1 @@
+web: gunicorn potfonebk.wsgi --log-file -
