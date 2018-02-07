@@ -146,6 +146,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 # My settings
 LOGIN_URL = '/accounts/login/'
 # LOGIN_REDIRECT_URL = '/potfonebks/'
