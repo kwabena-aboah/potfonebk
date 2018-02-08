@@ -146,8 +146,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
 # My settings
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000'
@@ -181,3 +179,4 @@ if os.getcwd() == '/app':
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'assets'),
     )
+
