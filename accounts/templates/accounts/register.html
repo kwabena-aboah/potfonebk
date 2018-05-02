@@ -1,34 +1,110 @@
-{% extends 'potfonebks/base.html' %}
-{% load bootstrap3 %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-{% block header %}
-  <h2>Register an account.</h2>
-{% endblock header %}
-
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+<style type="text/css">
+  body{
+    background: url({% static 'assets/img/dike.jpg' %}) no-repeat;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+  .alert{
+  	padding: 20px;
+  	background-color: #f44336;
+  	color: white;
+  	margin-bottom: 15px;
+  	opacity: 1;
+  	transition: opacity 0.6s;
+  }
+  .closebtn{
+  	margin-left: 15px;
+  	color: white;
+  	font-weight: bold;
+  	float: left;
+  	font-size: 22px;
+  	line-height: 20px;
+  	cursor: pointer;
+  	transition: 0.3s;
+  }
+  .closebtn:hover{
+  	color: black;
+  }
+</style>
 
 {% block content %}
 
-{% load static from staticfiles %}
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
-  
+{% load bootstrap3 %}
 
-<div class="col-md-12 col-sm-12 col-xs-12 user-login-box">
-    <div class="row">
-      <div class="col-md-8 col-sm-8 col-xs-8 col-md-offset-2 col-sm-offset-2 col-xs-offset-2 text-center">
-        <form method="post" action="{% url 'accounts:register' %}" class="form">
-			{% csrf_token %}
-			{% bootstrap_form form %}
-
-			{% buttons %}
-			<button name="submit" class="btn btn-primary">
-			  {% bootstrap_icon "star" %} register
-		   </button>
-			{% endbuttons %}
-			<input type="hidden" name="next" value="{% url 'potfonebks:index' %}">
-		</form>
-      </div>
+{% if form.errors %}
+    <div class="alert">
+    	<span class="closebtn" align='center' onclick="this.parentElement.style.display='none';">&times; Username Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
     </div>
+    <div class="alert">
+    	<span class="closebtn" align='center' onclick="this.parentElement.style.display='none';">&times; Your password can&#39;t be too similar to your other personal information.</span>
+    </div>
+    <div class="alert">
+    	<span class="closebtn" align='center' onclick="this.parentElement.style.display='none';">&times; Your password must contain at least 8 characters.</span>
+    </div>
+    <div class="alert">
+    	<span class="closebtn" align='center' onclick="this.parentElement.style.display='none';">&times; Your password can&#39;t be a commonly used password.</span>
+    </div>
+    <div class="alert">
+    	<span class="closebtn" align='center' onclick="this.parentElement.style.display='none';">&times; Your password can&#39;t be entirely numeric.</span>
+    </div>
+{% endif %}
+<div class="wrap">
+<!-- strat-contact-form --> 
+<div class="contact-form">
+<!-- start-form -->
+  <form class="contact_form" action="{% url 'accounts:register' %}" method="post">
+    {% csrf_token %}
+    <h1>Register an Account</h1>
+      <ul>
+          <li>
+              <input type="text" name="username" title="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only." required id="id_username" maxlength="150" autofocus placeholder="Username e.g kofi" class="textbox1" />
+               <p><img src="{% static 'assets/img/contact.png' %}" alt=""></p>
+          </li>
+          <li>
+              <input type="password" name="password1" title="Your password can&amp;#39;t be too similar to your other personal information.Your password must contain at least 8 characters.Your password can&amp;#39;t be a commonly used password.Your password can&amp;#39;t be entirely numeric." required id="id_password1" placeholder="Password" class="textbox2"/>
+              <p><img src="{% static 'assets/img/lock.png' %}" alt=""></p>
+          </li>
+          <li>
+          	<input type="password" name="password2" title="Enter the same password as before, for verification." required id="id_password2" placeholder="Password confirmation" class="textbox2" />
+          	<p><img src="{% static 'assets/img/lock.png' %}" alt=""></p>
+          </li>
+      </ul>
+          
+      <input type="submit" name="Sign In" value="Sign In"/>
+    <div class="clear"></div> 
+    <input type="hidden" name="next" value="{% url 'accounts:login' %}">
+  </form>
+<!-- end-form -->
+<!-- start-account -->
+<div class="account">
+  <h2><a href="{% url 'accounts:login' %}">Already have an account? Sign In!</a></h2>
+    <div class="span"><a href="{% url 'social:begin' 'github' %}"><img src="{% static 'assets/img/github.png' %}" alt="github"/><i>Sign In with Github</i><div class="clear"></div></a></div>  
+    <div class="span1"><a href="{% url 'social:begin' 'twitter' %}"><img src="{% static 'assets/img/twitter.png' %}" alt="twitter"/><i>Sign In with Twitter</i><div class="clear"></div></a></div>
+    <div class="span2"><a href="{% url 'social:begin' 'google-oauth2' %}"><img src="{% static 'assets/img/gplus.png' %}" alt=""/><i>Sign In with Google+</i><div class="clear"></div></a></div>
+    </div> 
+<!-- end-account -->
+<div class="clear"></div> 
 </div>
+</div>
+
+<script>
+	var close = document.getElementByClassName('closebtn');
+	var i;
+	// loop through all closed buttons
+	for(i=0; i < close.length; i++){
+		// close button click
+		close[i].onclick = function(){
+			var div = this.parentElement;
+			div.style.opacity='0';
+			setTimeout(function(){ div.style.display = 'none'; }, 600);
+		}
+	}
+</script>
 
 {% endblock content %}

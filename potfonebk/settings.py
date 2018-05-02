@@ -25,7 +25,7 @@ SECRET_KEY = '36d$9i4=9_k5r0nqvzspfrbldf9y*hn8%oz$l-#v374yc!bk74'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -86,6 +86,9 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
 
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -141,14 +144,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'assets'),
+    os.path.join(BASE_DIR, 'static'),
+    '/var/www/static/',
 )
+
+STATIC_ROOT = '/var/www/https://potfonebk.herokuapp.com/static/'
+# STATIC_ROOT = '/var/www/127.0.0.1:8000/static/'
 
 # My settings
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000'
+LOGOUT_URL = '/logout/'
+# LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000'
+LOGIN_REDIRECT_URL = 'https://potfonebk.herokuapp.com/'
 
 # SETTINGS FOR django-bootstrap3
 BOOTSTRAP3 = {
@@ -158,6 +170,13 @@ BOOTSTRAP3 = {
 # Social logins
 SOCIAL_AUTH_GITHUB_KEY = '5f0675c407b8252e694e'
 SOCIAL_AUTH_GITHUB_SECRET = 'f79cb79f52db9b960b4b7429fcbaa9577872bacf'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='1016891410231-10mr7nj0e04odb68pu8hk47mjlrk605p.apps.googleusercontent.com'  #Paste CLient Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'nRknwawa9X4cv3s_AhyZ6XHo' #Paste Secret Key
+
+SOCIAL_AUTH_TWITTER_KEY = '7Pu4Jh8mzrwmB3cdvFG1hrWGm'
+SOCIAL_AUTH_TWITTER_SECRET = '8VNvQIxfNkOa7dSPwRi1QcXKEw3xQqCG7RTdpojNVbMrYHtN0p'
+
 
 # Heroku settings
 if os.getcwd() == '/app':
@@ -177,6 +196,7 @@ if os.getcwd() == '/app':
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     STATIC_ROOT = 'staticfiles'
     STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'assets'),
+        os.path.join(BASE_DIR, 'static'),
+        '/var/www/static/',
     )
 

@@ -12,7 +12,7 @@ from .forms import ContactForm
 
 # Create your views here.
 
-
+@login_required
 def index(request):
     """The home page for potfonebks"""
     return render(request, 'potfonebks/index.html')
@@ -98,7 +98,3 @@ def delete_contact(request, cont_id):
         contact.delete()
         return HttpResponseRedirect(reverse('potfonebks:contacts'))
     return render(request, 'potfonebks/contacts.html')
-    #     return HttpResponseRedirect(reverse(render(request,
-    #                                                'potfonebks:contacts')))
-    # else:
-    #     return render(request, 'potfonebks/contacts.html')
